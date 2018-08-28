@@ -16,8 +16,6 @@ Vagrant.configure("2") do |config|
     mgt.vm.box = "centos/7"
     mgt.vm.hostname = "mgt"
     mgt.vm.synced_folder "D:\\", "/vagrant", type: "nfs" 
-   
-	#    mgt.vm.synced_folder "C:\\Users\\br1212937\\Documents\\MobaXterm\\home\\aws_keys", "/home/vagrant/keys", type: "nfs", owner: "vagrant", group: "vagrant", mount_options: ["dmode=644,fmode=600"]
 	mgt.vm.network "forwarded_port", guest: 22, host: 2222, id: 'ssh', auto_correct: false
     mgt.vm.network "private_network", type: "static", ip: "192.168.10.20"
     mgt.vm.provision "shell", path: "./scripts/common.sh"
@@ -53,8 +51,6 @@ Vagrant.configure("2") do |config|
     freerdp.vm.network "private_network", type: "static", ip: "192.168.10.22"
     freerdp.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
 	freerdp.vm.synced_folder ".", "/vagrant", disabled: true
-	#freerdp.vm.provision "shell", path: "./scripts/common.sh"
-    
   end  
   
   config.vm.define "rabbitmq02" do |rabbitmq02|
@@ -79,7 +75,6 @@ Vagrant.configure("2") do |config|
     end
     nginx.ssh.username = "vagrant"
     nginx.vm.box = "centos/7"
-	#nginx.landrush.enabled = true
     nginx.vm.hostname = "nginx"
     nginx.vm.network "private_network", type: "static", ip: "192.168.10.24"
     nginx.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
@@ -96,16 +91,10 @@ Vagrant.configure("2") do |config|
     end
     winmgt.ssh.username = "vagrant"
     winmgt.vm.box = "win2012"
-	#winmgt.vm.provision "windows-sysprep"
-	#winmgt.landrush.enabled = true
     winmgt.vm.hostname = "winmgt"
     winmgt.vm.network "private_network", type: "static", ip: "192.168.10.203"
     winmgt.vm.network :forwarded_port, guest: 3389, host: 3390, id: 'ssh', auto_correct: true
 	winmgt.vm.synced_folder ".", "/vagrant", disabled: true
-	#winmgt.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
-	#winmgt.vm.provision "shell", path: "./scripts/win_common.bat"
- 	#winmgt.vm.provision "shell", inline: "sudo yum install -y httpd"
-	
   end 
   
   config.vm.define "web2" do |web2|
@@ -115,16 +104,10 @@ Vagrant.configure("2") do |config|
     end
     web2.ssh.username = "vagrant"
     web2.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
-	#web2.vm.provision "windows-sysprep"
-	#web2.landrush.enabled = true
     web2.vm.hostname = "web2"
     web2.vm.network "private_network", type: "static", ip: "192.168.10.204"
     web2.vm.network :forwarded_port, guest: 3389, host: 3390, id: 'ssh', auto_correct: true
 	web2.vm.synced_folder ".", "/vagrant", disabled: true
-	#web2.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
-	#web2.vm.provision "shell", path: "./scripts/win_common.bat"
- 	#web2.vm.provision "shell", inline: "sudo yum install -y httpd"
-	
   end   
   
   config.vm.define "web3" do |web3|
@@ -134,16 +117,10 @@ Vagrant.configure("2") do |config|
     end
     web3.ssh.username = "vagrant"
     web3.vm.box = "therealslimpagey/Windows_Server_2003_Enterprise_R2_puppet"
-	#web3.vm.provision "windows-sysprep"
-	#web3.landrush.enabled = true
     web3.vm.hostname = "web3"
     web3.vm.network "private_network", type: "static", ip: "192.168.10.205"
     web3.vm.network :forwarded_port, guest: 3389, host: 3390, id: 'ssh', auto_correct: true
 	web3.vm.synced_folder ".", "/vagrant", disabled: true
-	#web3.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
-	#web3.vm.provision "shell", path: "./scripts/win_common.bat"
- 	#web3.vm.provision "shell", inline: "sudo yum install -y httpd"
-	
   end   
   
   config.vm.define "dc2" do |dc2|
@@ -153,16 +130,11 @@ Vagrant.configure("2") do |config|
     end
     dc2.ssh.username = "vagrant"
     dc2.vm.box = "jacqinthebox/windowsserver2016core"
-	#dc2.landrush.enabled = true
     dc2.vm.hostname = "dc12"
-	#dc2.vm.provision "windows-sysprep"
     dc2.vm.network "private_network", type: "static", ip: "192.168.10.201"
     dc2.vm.network :forwarded_port, guest: 3389, host: 3390, id: 'ssh', auto_correct: true
 	dc2.vm.synced_folder ".", "/vagrant", disabled: true
-	#dc2.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
-	#dc2.vm.provision "shell", path: "./scripts/win_common.bat"
- 	#dc2.vm.provision "shell", inline: "sudo yum install -y httpd"
-	
+
   end   
   
   config.vm.define "dc1" do |dc1|
@@ -173,16 +145,11 @@ Vagrant.configure("2") do |config|
     end
     dc1.ssh.username = "vagrant"
 	dc1.vm.provision "windows-sysprep"
-    #dc1.vm.box = "centos/7"
-	#dc1.landrush.enabled = true
     dc1.vm.hostname = "dc1"
     dc1.vm.network "private_network", type: "static", ip: "192.168.10.202"
     dc1.vm.network :forwarded_port, guest: 3389, host: 3390, id: 'ssh', auto_correct: true
-	#dc1.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
 	dc1.vm.synced_folder ".", "/vagrant", disabled: true
-	#dc1.vm.provision "shell", path: "./scripts/common.sh"
-	#dc1.vm.provision "shell", inline: "sudo yum install -y httpd"	
-    
+
   end  
 
 end
